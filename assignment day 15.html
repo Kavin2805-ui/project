@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Art Gallery</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .artwork { display: none; }
+        .active { display: block; }
+        .highlight { background-color: #f0f0f0; cursor: pointer; }
+        
+        .active img{
+            width: 300px;
+            height: 200px;
+        }
+        *{
+            text-align: center;
+        }
+        
+        .box{
+            box-shadow: 0 0 8px black;
+            background-color:rgb(107, 138, 122);
+            height: 500px;
+            width: 500px;
+            margin-top: 60px;
+            margin-left: 500px;
+            padding-top:50px ;
+            border: solid black;
+        }
+        button:hover{
+            height: 30px;
+            width: 60px;
+            background-color:rgb(182, 199, 170) ;
+        }
+       
+        
+    </style>
+</head>
+<body style="background-color:white">
+    <h1>Fighter Aircrafts</h1>
+   <div class="box">
+    <div id="galleryContainer"></div>
+    <div id="navigation">
+        <button id="prevButton">Previous</button>
+        <button id="nextButton">Next</button>
+    </div>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const galleryContainer = document.getElementById("galleryContainer");
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+
+    let currentArtwork = 0;
+    let artworks = [
+        { name: "Sukhoi Su-30MK", developed :"Russian aircraft manufacturer ", year: 2002 , description: "twinjet, two-seater, multirole fighter aircraft ", image: "https://www.airforce-technology.com/wp-content/uploads/sites/6/2017/09/4l-image-21.jpg" },
+        { name: "dassault mirage 2000", developed :"Mirage III for the French Air Force. ", year: 1970, description: " French, single-engine, delta wing, fourth-generation jet fighter.", image :"https://i.ytimg.com/vi/-xiwgBdWPL4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLB1brOx3u7V_JJVMfKrDOChSdryMg" },
+       { name: "Mikoyan-Gurevich MiG-21",developed :" Soviet designers developed a unique tailed delta" , year: 1956, description: "This MiG-21F-13 was displayed in a Soviet military ", image: "https://www.team-bhp.com/forum/attachments/commercial-vehicles/2513995d1696648777-ode-mikoyan-gurevich-mig-21-mig21-fl-3.jpg"  },
+       { name: "Folland Gnat", developed:" Folland Aircraft", year:1959,description :"The Folland Gnat is a British compact swept-wing subsonic fighter aircraft ",image :"https://lh3.googleusercontent.com/proxy/iRgjgXGZ2uxNsStiZAlq3iIV3STvRdsSAwU6wWTppFLNbdZr7niRGaaks3C0pkbfQqYrn6ytoDppJj3gdc5K4Jp5rsOh877dKkY-VOefgstkX5EfVsIMEIbZ5zvMs_DBRQ"},
+       { name:"HAL HF-24 Marut", developed:"Hindustan Aeronautics Limited ",year:1961, description:"The HAL HF-24 Marut was an Indian jet fighter aircraft", image:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/HAL_Marut_used_in_the_battle_of_longewala.jpg/220px-HAL_Marut_used_in_the_battle_of_longewala.jpg"},
+       { name:"Dassault Ouragan", developed:" Dassault Aviation", year:	1952, description:"The Dassault M.D.450 Ouragan (French: Hurricane) is a French fighter-bomber developed and produced by Dassault Aviation.",image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOvz43g-s5zA_7ccx-C7AME2FiyCReRcLPhw&s"}
+    ];
+
+    function renderArtwork(index) {
+        const artwork = artworks[index];
+        galleryContainer.innerHTML = `
+            <div class="artwork active">
+                <img src="${artwork.image}"  alt="${artwork.name}">
+                <h2>${artwork.name}</h2>
+                <p> developed: ${artwork.developed}</p>
+                <p>Year: ${artwork.year}</p>
+                <p> description :${artwork.description}</p>
+            </div>
+        `;
+    }
+
+
+
+    prevButton.addEventListener("click", function() {
+        if (currentArtwork > 0) {
+            currentArtwork--;
+            renderArtwork(currentArtwork);
+        }
+    });
+
+    nextButton.addEventListener("click", function() {
+        if (currentArtwork < artworks.length - 1) {
+            currentArtwork++;
+            renderArtwork(currentArtwork);
+        }
+    });
+
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "ArrowRight") {
+            nextButton.click();
+        } else if (event.key === "ArrowLeft") {
+            prevButton.click();
+        }
+    });
+
+    renderArtwork(currentArtwork);
+});
+</script>
+</html>
